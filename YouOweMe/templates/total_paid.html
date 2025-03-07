@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Total Paid Per Debt</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {%block content %}
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <!-- Navbar brand/logo -->
+           <a class="navbar-brand" href="{% url 'index_view' %}">
+                <img src="https://gerarmemes.s3.us-east-2.amazonaws.com/memes/f55c7ea5.webp" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+            </a>
+
+            <!-- Navbar toggler for smaller screens -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'index_view' %}">Payments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'debt' %}">Debts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'total_paid' %}">Total Paid</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+        <div class="container">
+        <br>
+            <h1>Total Paid</h1>
+            <br>
+            <div class="row">
+                {% for debt, image in debt_with_images %}
+                    <div class="col-md-4">
+                        <div class="card mb-4" style="width: 18rem;">
+                            <!-- Optional image: you can use a different image for each debt, or leave it as is -->
+                            <img src="{{ image.image_url }}" class="card-img-top" alt="Debt Image">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ debt.name }}</h5>
+                                <p class="card-text">
+                                    Total Paid: {{ debt.total_paid }}<br>
+                                    Total Owed: {{ debt.total_owned }}
+                                </p>
+                                <!-- Optional link to more details, could be linked to a detail view -->
+                                <a href="{% url 'debt' %}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>
+

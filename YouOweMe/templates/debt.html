@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Adding Payments</title>
+        
+    </head>
+    <body>
+        {% extends 'base.html' %}
+
+        {%block content %}
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <!-- Navbar brand/logo -->
+               <a class="navbar-brand" href="{% url 'index_view' %}">
+                    <img src="https://gerarmemes.s3.us-east-2.amazonaws.com/memes/f55c7ea5.webp" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+                </a>
+
+                <!-- Navbar toggler for smaller screens -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'index_view' %}">Payments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'debt' %}">Debts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'total_paid' %}">Total Paid</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+        <div class="container">  
+            <br></br>
+        <h1>Create a new Debt</h1>
+        <form method="POST" action="{% url 'debt' %} ">
+                {% csrf_token %}
+                <div class="mb-3">
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Name" name="name">
+                </div>
+
+                <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Object Bought" name="purchase">
+                </div>
+
+                <div class="mb-3">
+                    <input type="number" class="form-control" placeholder="Total Amount" name="total_amount">
+                </div>
+
+                <div class="mb-3">
+                    <input type="date" class="form-control" placeholder="Date" name="effective_date">
+                </div>
+            <br>
+                <button type="submit" class="btn btn-secondary">Submit</button>
+            </form>
+            <br></br>
+            <h1>Debts History</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Object Bought</th>
+                        <th scope="col">Total Amount</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in all_debts %}
+                    <tr>
+                        <td>{{loop.index}}</td> <!-- This "loop.index" was what generated new rows according do the data, took me a long time to find this. -->
+                        <td>{{item.id}}</td>
+                        <td>{{item.name }}</td>
+                        <td>{{item.purchase}}</td>
+                        <td>{{ item.total_amount }}</td>
+                        <td>{{ item.effective_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+
+
+        </form>
+        </div>
+        {% endblock %}
+    </body>
+</html>
