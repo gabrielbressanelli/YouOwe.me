@@ -7,7 +7,7 @@ from itertools import cycle
 
 
 def index_view(request):
-    all_deadbeats = DeadBeat.objects.all()
+    all_deadbeats = DeadBeat.objects.all().order_by('date').values()
     form = DeadBeatForm(request.POST or None)
 
 
